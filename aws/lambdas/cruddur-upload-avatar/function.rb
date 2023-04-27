@@ -16,19 +16,8 @@ def handler(event:, context:)
       statusCode: 200
     }
   else
-    if event['headers'].nil? || event['headers']['authorization'].nil?
-      # Handle the case when headers or authorization is missing
-      # Return an appropriate response or raise an error, depending on your requirements
-      # For example, you can return an error response with a specific status code and error message
-      return {
-        statusCode: 400,
-        body: "Authorization header is missing"
-      }
-    end
-
     token = event['headers']['authorization'].split(' ')[1]
     puts({step: 'presignedurl', access_token: token}.to_json)
-
 
     body_hash = JSON.parse(event["body"])
     extension = body_hash["extension"]
